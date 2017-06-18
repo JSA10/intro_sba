@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "## INTRO TO SBA\n##\nlibrary(tidyverse)\npasta <- read_csv(\"_eba2c079135882131db3690701bc9c97_PASTAPURCHASE_EDITED.csv\")\nView(slice(pasta, 1:100))\nglimpse(pasta)\n\n#1 What is the correct mean and standard deviation of the quantity of pasta\n#purchased by time unit by household?\nsummary(pasta)\nmean(pasta$PASTA)\nsd(pasta$PASTA)\n\n#2 In which area are located (i) the poorest household and (ii) the wealthiest\n#household?\nwealth <- pasta %>%\n    arrange(INCOME)\nhead(wealth)\ntail(wealth)\n\n#3 What is the maximum pasta quantity a household has bought over the whole\n#time period?\n#(Sum the quantity of pasta by household over time and indicate the maximum)\nhh_ps <- pasta %>%\n    group_by(HHID) %>%\n    summarise(\n        pasta_total = sum(PASTA)\n    ) %>%\n    arrange(pasta_total)\n\ntail(hh_ps)\n\n#4 What is the average income of households living in area 4?\narea_income <- pasta %>%\n    group_by(AREA) %>%\n    summarise(\n        avg_income = mean(INCOME)\n    )\n\narea_income\n\n#5 How many households live in area 2, earn more than 20k, and have purchased\n#more than 30 units of pasta over the whole time period?\n\nq5 <- pasta %>%\n    group_by(HHID) %>%\n    filter(AREA == 2 & INCOME > 20000) %>%\n    summarise(\n        pasta_total = sum(PASTA)\n    ) %>%\n    filter(pasta_total > 30)\n\n#6 What is the correlation between the purchases of pasta and the exposures?\ncor(pasta$PASTA, pasta$EXPOS)\n\n\n#7 Which of the following graphs reports the correct histogram by household of\n#the total purchase of pasta made by the household over the whole period?\n#(Sum the purchases by household and make a histogram.)\n\nhist(hh_ps$pasta_total)\n\n#8 Which of the following graphs reports the correct time series of the overall\n#total purchase of pasta? (Sum the purchases by time units and plot the quantity\n#by time unit.)\n\nts_ps <- pasta %>%\n    group_by(TIME) %>%\n    summarise(\n        pasta_total = sum(PASTA)\n    )\n\nplot(ts_ps)\n\n### PASSED 1ST TIME 8/8 RIGHT\n\n\n\n",
+    "created" : 1497703446104.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3402856345",
+    "id" : "30FE4938",
+    "lastKnownWriteTime" : 1497793175,
+    "last_content_update" : 1497793175100,
+    "path" : "~/Documents/DataScience/courses/ESSEC_SBA/Intro_SBA/Intro_practice_quiz.r",
+    "project_path" : "Intro_practice_quiz.r",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
